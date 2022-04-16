@@ -1,0 +1,1997 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<variables>
+<variable id="O+JjJ`?7c9!{76I`7sr`">val</variable>
+<variable id="?@E4!9o(^h]MQal1IdIg">esq</variable>
+<variable id="{qe+T68-qejUpo3H`6.7">dir</variable>
+<variable id="sa%/8`S4e86!0tG5;5lV">angulo</variable>
+<variable id="Ep@fStdJ[^b{U]n|`WOL">duracao</variable>
+<variable id="q!c2di./)D~w9g5U)Cjm">PID_setpoint</variable>
+<variable id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</variable>
+<variable id="srCU,cq]Xu$9,W?bXi=@">PID_angulo_atual</variable>
+<variable id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</variable>
+<variable id="]Y0kTxkgam8y4`=n@P1d">PID_angulo_inicial</variable>
+<variable id="3)0]dU6Rry!PtxyV5T01">PID_erro</variable>
+<variable id="7}4|UmsD,fVDI?*%eBGy">PID_resultado</variable>
+<variable id="!hn=RwIxEs_{N`G:^0@+">forca_motor</variable>
+<variable id="Hsq^vjf_g/THs74Fd/h]">correcao</variable>
+<variable id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</variable>
+<variable id="z2R#}fbo-#9%Rrst/.IB">0_so_uma_vez</variable>
+<variable id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</variable>
+<variable id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</variable>
+<variable id="L~)C1|%P[HC$H4_$$+pE">PID_Kp</variable>
+<variable id="zK|!k5quET#bUC*$j1IC">tempo</variable>
+<variable id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</variable>
+<variable id="?m[kw4#L2iAyh;sIzX/k">GYRO_angulo_anterior</variable>
+<variable id="B|D#KnQoz0?s`#%{7e(X">PID_Kd</variable>
+<variable id="$WI8HdC:vkc,_ks],[2%">PID_erro_anterior</variable>
+<variable id="4#D}sC|xH3[c`;;obF);">PID_Ki</variable>
+</variables>
+<block type="procedures_defnoreturn" id="6X^$)LGH49cPCGTpD*2Z" x="811" y="-268">
+<mutation>
+<arg name="esq" varid="?@E4!9o(^h]MQal1IdIg"/>
+<arg name="dir" varid="{qe+T68-qejUpo3H`6.7"/>
+</mutation>
+<field name="NAME">arcade_drive</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="dcMotor_setProperty_Number" id=":BZj)%~aa,p:|{owQqQ.">
+<field name="IDENTIFIER">TracaoFrenteDireitaAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"TracaoFrenteDireita"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="R{]*!u4m#|X|sDXqR#I(">
+<field name="NUM">0.5</field>
+</shadow>
+<block type="variables_get" id="He|PaE9U)1A$/Yh@C*r6">
+<field name="VAR" id="{qe+T68-qejUpo3H`6.7">dir</field>
+</block>
+</value>
+<next>
+<block type="dcMotor_setProperty_Number" id="rKIv,K{@16ML_d2%`~DW">
+<field name="IDENTIFIER">TracaoTrasDireitaAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"TracaoTrasDireita"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="UqBk$F8Jb4_ddI3f8PiK">
+<field name="NUM">0.5</field>
+</shadow>
+<block type="variables_get" id="KX+Wny}v1.KcnwVHF8hD">
+<field name="VAR" id="{qe+T68-qejUpo3H`6.7">dir</field>
+</block>
+</value>
+<next>
+<block type="dcMotor_setProperty_Number" id="ahI|P7mYG8f$.~XZvmFc">
+<field name="IDENTIFIER">TracaoFrenteEsquerdaAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"TracaoFrenteEsquerda"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="Pr*=]Vl[r0/wzI)JaULb">
+<field name="NUM">0.5</field>
+</shadow>
+<block type="variables_get" id="J|RpUW`s0LwN=z2sM1OT">
+<field name="VAR" id="?@E4!9o(^h]MQal1IdIg">esq</field>
+</block>
+</value>
+<next>
+<block type="dcMotor_setProperty_Number" id="zh9)vRe7c#+.jzFmRVR)">
+<field name="IDENTIFIER">TracaoTrasEsquerdaAsDcMotor</field>
+<field name="PROP">Power</field>
+<data>{"IDENTIFIER":"TracaoTrasEsquerda"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="S}~lnFF9m._$x*!L*}nA">
+<field name="NUM">0.5</field>
+</shadow>
+<block type="variables_get" id="rvRk1sJy0$#h?DLAV;3*">
+<field name="VAR" id="?@E4!9o(^h]MQal1IdIg">esq</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="dcMotor_setDualProperty_RunMode" id="NV`fn]TPJILtGH#k,U=f" x="-610" y="-190">
+<field name="PROP">Mode</field>
+<field name="IDENTIFIER1">TracaoFrenteDireitaAsDcMotor</field>
+<field name="IDENTIFIER2">TracaoFrenteEsquerdaAsDcMotor</field>
+<data>{"IDENTIFIER1":"TracaoFrenteDireita","IDENTIFIER2":"TracaoFrenteEsquerda"}</data>
+<value name="VALUE1">
+<shadow type="dcMotor_typedEnum_runMode" id="#2|@nPRHX~CeCKuxxYBe">
+<field name="RUN_MODE">RUN_USING_ENCODER</field>
+</shadow>
+</value>
+<value name="VALUE2">
+<shadow type="dcMotor_typedEnum_runMode" id="4c#{MJ6HX+XwC;J2b:B2">
+<field name="RUN_MODE">RUN_USING_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setDualProperty_RunMode" id=":foJGLmJr@w1]lIUN_X@">
+<field name="PROP">Mode</field>
+<field name="IDENTIFIER1">TracaoTrasDireitaAsDcMotor</field>
+<field name="IDENTIFIER2">TracaoTrasEsquerdaAsDcMotor</field>
+<data>{"IDENTIFIER1":"TracaoTrasDireita","IDENTIFIER2":"TracaoTrasEsquerda"}</data>
+<value name="VALUE1">
+<shadow type="dcMotor_typedEnum_runMode" id="6rHCt$k0IwHm`B[5q%xv">
+<field name="RUN_MODE">RUN_USING_ENCODER</field>
+</shadow>
+</value>
+<value name="VALUE2">
+<shadow type="dcMotor_typedEnum_runMode" id="Y[:(KyDxY#dC_yWvGUGh">
+<field name="RUN_MODE">RUN_USING_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="variables_set" id="srRwn;SE,UBu8$A`YVJ0">
+<field name="VAR" id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</field>
+<value name="VALUE">
+<block type="bno055imuParameters_create" id="?XaLxtYL!P-4uk,W$1v,"/>
+</value>
+<next>
+<block type="bno055imuParameters_setAngleUnit" id="+,f`KZQ(qPX].b)~F@no">
+<value name="BNO055IMU_PARAMETERS">
+<block type="variables_get" id="(1Cq{1S`:sPf;D$9p^,K">
+<field name="VAR" id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</field>
+</block>
+</value>
+<value name="ANGLE_UNIT">
+<shadow type="navigation_typedEnum_angleUnit" id="6gO;^)fQa[*X)U`rg/|]">
+<field name="ANGLE_UNIT">DEGREES</field>
+</shadow>
+</value>
+<next>
+<block type="bno055imuParameters_setAccelUnit" id="?E(y/bZWmb/xp]C=QcQ;">
+<value name="BNO055IMU_PARAMETERS">
+<block type="variables_get" id="@4_M+_hqt1QD3?i*[q-5">
+<field name="VAR" id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</field>
+</block>
+</value>
+<value name="ACCEL_UNIT">
+<shadow type="bno055imuParameters_typedEnum_accelUnit" id="JPHSxLs|)kw0~fec-c3;">
+<field name="ACCEL_UNIT">METERS_PERSEC_PERSEC</field>
+</shadow>
+</value>
+<next>
+<block type="bno055imuParameters_setLoggingEnabled" id="S3Dq|P9qkr^M%SUFX%#C">
+<value name="BNO055IMU_PARAMETERS">
+<block type="variables_get" id="4wQe0JJA{2G:C_Hukd,h">
+<field name="VAR" id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</field>
+</block>
+</value>
+<value name="LOGGING_ENABLED">
+<shadow type="logic_boolean" id="Oi*x{TZQpt25EN%_7Jh4">
+<field name="BOOL">FALSE</field>
+</shadow>
+</value>
+<next>
+<block type="bno055imu_initialize" id="81~{?6*Uca%`q~imzHex">
+<field name="IDENTIFIER">imuAsBNO055IMU</field>
+<data>{"IDENTIFIER":"imu"}</data>
+<value name="PARAMETERS">
+<block type="variables_get" id="{D`W6maLlcL{T7#h[RRj">
+<field name="VAR" id="FbaKvU!;|Tlp/}9nA2Ob">GYRO_imu_parameters</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="]%Vd/Lt2Do^0:Ej0hx3O">
+<field name="VAR" id="z2R#}fbo-#9%Rrst/.IB">0_so_uma_vez</field>
+<value name="VALUE">
+<block type="math_number" id="]J}#a[=y%8}Dq4@@j$/|">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="dcMotor_setProperty_Direction" id="g0)(Ukf{t%R-TCMR+Avd">
+<field name="IDENTIFIER">TracaoFrenteDireitaAsDcMotor</field>
+<field name="PROP">Direction</field>
+<data>{"IDENTIFIER":"TracaoFrenteDireita"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_direction" id="?q-?n2l:l3/?=r!Z*561">
+<field name="DIRECTION">REVERSE</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setProperty_Direction" id="?CEwRE`pLQ,.khT$%fDz">
+<field name="IDENTIFIER">TracaoTrasDireitaAsDcMotor</field>
+<field name="PROP">Direction</field>
+<data>{"IDENTIFIER":"TracaoTrasDireita"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_direction" id="PQR-Dw!:R}$sh+wF6qt}">
+<field name="DIRECTION">REVERSE</field>
+</shadow>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="(KP4}cD%nh`Ebe]ozs]0">
+<mutation name="GYRO_inicializar"/>
+<next>
+<block type="variables_set" id="n|KW1;e2#!W[O8$-WHu9">
+<field name="VAR" id="!hn=RwIxEs_{N`G:^0@+">forca_motor</field>
+<value name="VALUE">
+<block type="math_number" id="4r8IPuynoYO;A$7EQya~">
+<field name="NUM">0.4</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="P=f}%E(}.sZxzGEh@}G8">
+<field name="VAR" id="zK|!k5quET#bUC*$j1IC">tempo</field>
+<value name="VALUE">
+<block type="elapsedTime2_create_withResolution" id="^]i#0GSyoRl87LyL9]5*">
+<value name="RESOLUTION">
+<shadow type="elapsedTime2_typedEnum_resolution" id="T8l0GtJ|?t4CG47K-8H7">
+<field name="RESOLUTION">MILLISECONDS</field>
+</shadow>
+</value>
+</block>
+</value>
+<next>
+<block type="linearOpMode_waitForStart" id=":`$wN_ci`O;o6P0~.(+g">
+<next>
+<block type="controls_if" id="}Q?5mbxSO8Di;i!__6[y">
+<value name="IF0">
+<block type="linearOpMode_opModeIsActive" id=")o%YFX/#9kvv^sgXr4~5"/>
+</value>
+<statement name="DO0">
+<block type="controls_whileUntil" id="%Zltkc=#=p}B[5V^9wgp">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="NPK{:.=MB2zu)wkcsdnC"/>
+</value>
+<statement name="DO">
+<block type="procedures_callnoreturn" id="(ug4E`b6CQx)@1Aa*S`I">
+<mutation name="andar_frente">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="w)UOA3UX%5;NBQJ~z2q7">
+<field name="NUM">10000</field>
+</block>
+</value>
+</block>
+</statement>
+<next>
+<block type="telemetry_addNumericData_Number" id="z}7:T8xk%BqW_qp`$|AV">
+<value name="KEY">
+<shadow type="text" id="X[ynIdMhY:kX`4G%PdpT">
+<field name="TEXT">Angulo_real</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="8kqxxTd!cYOg#6E~nJ@}">
+<field name="NUM">123</field>
+</shadow>
+<block type="variables_get" id="Yd+n+Z?h-z-BEcTO;$V5">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="vvgFn(`LMB1]T,[QN(VC">
+<value name="KEY">
+<shadow type="text" id="UybxjFi++wj[u9jSEf}W">
+<field name="TEXT">Fim</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="l45vbqK!f/=s-]U6FeqB">
+<field name="NUM">123</field>
+</shadow>
+</value>
+<next>
+<block type="telemetry_update" id=".J8uT4Eo]HP:V.AC/r!]"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+<block type="procedures_defreturn" id="qlM`Y.@wU6Foq_#ZZaS8" x="-2110" y="-42">
+<mutation>
+<arg name="val" varid="O+JjJ`?7c9!{76I`7sr`"/>
+</mutation>
+<field name="NAME">signum</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="procedures_ifreturn" id="RPW`Wy,v(wh_!=PLov7B">
+<mutation value="1"/>
+<value name="CONDITION">
+<block type="logic_compare" id="WvKqq=`tX3sG@2]gNhs`">
+<field name="OP">EQ</field>
+<value name="A">
+<block type="variables_get" id="9diVkTfqdX?LwC)G93Fg">
+<field name="VAR" id="O+JjJ`?7c9!{76I`7sr`">val</field>
+</block>
+</value>
+<value name="B">
+<block type="math_number" id="ZiAn7ZA$sbgvV/yxxXzc">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</value>
+<value name="VALUE">
+<block type="math_number" id="]-UM~Sk5NB^g7UCnv[$]">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</statement>
+<value name="RETURN">
+<block type="math_arithmetic" id="@L+Q`Y()NN?2X!=#$[wc">
+<field name="OP">DIVIDE</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id=",@iOQK]-:BY21l6{{Asb">
+<field name="VAR" id="O+JjJ`?7c9!{76I`7sr`">val</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_single" id="qA}aeTKDF~~xoHlMuREf">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="U`.t}f$3Uy@gWS(Z}u7!">
+<field name="VAR" id="O+JjJ`?7c9!{76I`7sr`">val</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+<block type="procedures_defnoreturn" id="?Td$p=v[F/x;P4ie$i8$" x="2563" y="-236">
+<field name="NAME">GYRO_inicializar</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="comment" id="V~*M(rW=Hn8cS7S3a!3N">
+<field name="COMMENT">Não leia o gyro diretamente</field>
+<next>
+<block type="comment" id=";K)tr{ZkBxDCW@bkck-b">
+<field name="COMMENT">pois a saída não é continua</field>
+<next>
+<block type="comment" id="FgkRj{y,tzL1GJ~VR8t?">
+<field name="COMMENT">Use a variável angulo_real</field>
+<next>
+<block type="variables_set" id="%,48DV1)Xn(w~=%0k30L">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+<value name="VALUE">
+<block type="orientation_getProperty_Number" id="{~0Wq2iB}l]W_1p+u7jS">
+<field name="PROP">FirstAngle</field>
+<value name="ORIENTATION">
+<block type="bno055imu_getAngularOrientation" id="=u2{/PHi3Slpr`u~Z2CM">
+<field name="IDENTIFIER">imuAsBNO055IMU</field>
+<data>{"IDENTIFIER":"imu"}</data>
+<value name="AXES_REFERENCE">
+<shadow type="navigation_typedEnum_axesReference" id="N.az@!d/AUI[;=Th+5);">
+<field name="AXES_REFERENCE">INTRINSIC</field>
+</shadow>
+</value>
+<value name="AXES_ORDER">
+<shadow type="navigation_typedEnum_axesOrder" id="gG.m!}9IiYAg~4ua6YC{">
+<field name="AXES_ORDER">ZYX</field>
+</shadow>
+</value>
+<value name="ANGLE_UNIT">
+<shadow type="navigation_typedEnum_angleUnit" id="qVHsFLdR{c_P-{m%G(A$">
+<field name="ANGLE_UNIT">DEGREES</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="variables_set" id="JqB3@oEc-NAeq0m9P%r2">
+<field name="VAR" id="?m[kw4#L2iAyh;sIzX/k">GYRO_angulo_anterior</field>
+<value name="VALUE">
+<block type="variables_get" id="B.L,{1_@*)P0qBBL-N-Y">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="8J*!j%`K=HE?l|L_dOiJ">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+<value name="VALUE">
+<block type="math_number" id="g5MBH(y.qPjm0+gX%)tI">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="6di}|2SFiqS6*}506U:k">
+<mutation name="GYRO_atualizar"/>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_callnoreturn" id="nxW!x33jdIr!Omzewfe." x="-2110" y="104">
+<mutation name="arcade_drive">
+<arg name="esq"/>
+<arg name="dir"/>
+</mutation>
+<value name="ARG0">
+<block type="math_arithmetic" id="yz;#HGtf/EHk61-Q7I+Y">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="o02#?AMBCU+x4?}-CPt@">
+<field name="VAR" id="!hn=RwIxEs_{N`G:^0@+">forca_motor</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="goIScXh5wn{E-}OumwCn">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+</block>
+</value>
+<value name="ARG1">
+<block type="math_arithmetic" id="A0Ix_=SkiK-ta!(:?coJ">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="SJ`rz*1}fiEmx4QC^C}P">
+<field name="VAR" id="!hn=RwIxEs_{N`G:^0@+">forca_motor</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id=")*rIb_Q%|vty7)sc{ZjT">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+<block type="procedures_defnoreturn" id="WtpyD@tEu+EoY=P9iY,D" deletable="false" editable="false" x="-204" y="41">
+<field name="NAME">runOpMode</field>
+<comment pinned="false" h="32" w="532">This function is executed when this Op Mode is selected from the Driver Station.</comment>
+</block>
+<block type="procedures_defnoreturn" id="_MjbN[4so@@LmbLmaa`X" x="939" y="271">
+<mutation>
+<arg name="angulo" varid="sa%/8`S4e86!0tG5;5lV"/>
+</mutation>
+<field name="NAME">girar</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="variables_set" id="{DwaF@HK[vdu!%{%QwDy">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+<value name="VALUE">
+<block type="math_modulo" id="II3z14*OrVWnzfqyiE3T">
+<value name="DIVIDEND">
+<shadow type="math_number" id="I0ag%I-qFL|UdkQx=X2w">
+<field name="NUM">64</field>
+</shadow>
+<block type="variables_get" id="ka%U5PH!R.8Ct?xT*C}v">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+</block>
+</value>
+<value name="DIVISOR">
+<shadow type="math_number" id="Hka~J#Y,dtGBSSQT{M.5">
+<field name="NUM">360</field>
+</shadow>
+</value>
+</block>
+</value>
+<next>
+<block type="controls_if" id="khge/oB#R3AYOyZ5-O{x">
+<value name="IF0">
+<block type="logic_compare" id="a`vu._n*]_haAGGkr!o2">
+<field name="OP">LT</field>
+<value name="A">
+<block type="math_number" id="rcN8LA;j,L|2fBEzi/VU">
+<field name="NUM">180</field>
+</block>
+</value>
+<value name="B">
+<block type="math_single" id="9Xb(?%zf3.*G.?_LeZ!1">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number" id="*eGgIP$wHym=ZoZd3TZn">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="05a/|E@40TlVMYkCo((a">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="variables_set" id="UW]9)Q.To;el5R9y]RdO">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="*zY*s(=gNT-!;!bctQ7h">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="lPsHY*We!tUkq.NH!WI=">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_single" id="I@3xmU-FSMG}mPaG3*sx">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number" id="1dm.hzSRti@D:oXx7@+q">
+<field name="NUM">9</field>
+</shadow>
+<block type="math_modulo" id="aGdjbG03X}V/jY]PiK:1">
+<value name="DIVIDEND">
+<shadow type="math_number" id="{H)S.Tt9940C+85L}zEI">
+<field name="NUM">64</field>
+</shadow>
+<block type="variables_get" id="Awab+kLZ4~)wl=uY4$`r">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+</block>
+</value>
+<value name="DIVISOR">
+<shadow type="math_number" id="s4o*wIRxw]LrsMEj1G,q">
+<field name="NUM">180</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="nJ|g`U=XHce`]V3/A4c[">
+<field name="NUM">360</field>
+</shadow>
+<block type="math_arithmetic" id="o#RCJV3[v3E.]h}8,ig,">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="~QE{jBJ3Ng;LqAg4?zt,">
+<field name="NUM">-1</field>
+</shadow>
+</value>
+<value name="B">
+<shadow type="math_number" id="AVlEkc0hpZ_pH6T=@WLF">
+<field name="NUM">-180</field>
+</shadow>
+<block type="procedures_callreturn" id="xIo`wiUF^O||lkC?`Rw`">
+<mutation name="signum">
+<arg name="val"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="X_jB^A+P4Qhzx+fRgy,T">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</statement>
+<next>
+<block type="procedures_callnoreturn" id="DJc_?LO[ZKXU6OIZ4/.a">
+<mutation name="PID_inicializar">
+<arg name="PID_setpoint"/>
+</mutation>
+<value name="ARG0">
+<block type="math_arithmetic" id="7{bf3Y1%A4htJxP$3NwM">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="lxw?8P1HKKDA0rdNTYOg">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="}xAkcy+CE`21U?t+b-Ue">
+<field name="VAR" id="sa%/8`S4e86!0tG5;5lV">angulo</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="vrjzpQHp.wXcJp6JX%Fz">
+<field name="NUM">360</field>
+</shadow>
+<block type="variables_get" id="NH|G`QslpT7~w!U:]qX)">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="variables_set" id="geCs|W[mzD`{9fBuOG_G">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+<value name="VALUE">
+<block type="procedures_callreturn" id="CKs@4lfH=!0|vi=}OmG4">
+<mutation name="PID_calcular_correcao">
+<arg name="PID_angulo_atual"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="[4eqxk[Jx5gt5^x}UDVl">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="controls_whileUntil" id="TQA%q{Q$D1#fUrgA97=1">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="cE1sn2r?htu]g($^_2H`"/>
+</value>
+<statement name="DO">
+<block type="controls_if" id="m:uQN=T9$LR1i-^+_nSL">
+<value name="IF0">
+<block type="logic_negate" id="UWj|~-o:-{zx(i^]8uys">
+<value name="BOOL">
+<block type="logic_operation" id="+)T3_kF$ql!WM|f2CYzN">
+<field name="OP">OR</field>
+<value name="A">
+<block type="logic_compare" id="c5RU_3P+h}6s:}qqY*9x">
+<field name="OP">GTE</field>
+<value name="A">
+<block type="math_single" id="vFow!oEA^C8mXN1N^iKh">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="9WjqMwN`RYx=jBcoDTuL">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<block type="math_number" id="l?2M}oRvJZgi$2JW0e5o">
+<field name="NUM">0.5</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<block type="logic_compare" id="zhZPnsLsgkR||%/9vOz6">
+<field name="OP">LTE</field>
+<value name="A">
+<block type="math_number" id="-;I}airKYaOHa3,mhbfA">
+<field name="NUM">0.5</field>
+</block>
+</value>
+<value name="B">
+<block type="angularVelocity_getProperty_Number" id="tkW7ORgH-)zy_e6#/#V[">
+<field name="PROP">ZRotationRate</field>
+<value name="ANGULAR_VELOCITY">
+<block type="bno055imu_getAngularVelocity" id=",MT)S%J:Jg5nQ^qh}PrK">
+<field name="IDENTIFIER">imuAsBNO055IMU</field>
+<data>{"IDENTIFIER":"imu"}</data>
+<value name="ANGLE_UNIT">
+<shadow type="navigation_typedEnum_angleUnit" id="v#A#tMtbMM~lrzc{+HEY">
+<field name="ANGLE_UNIT">DEGREES</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="controls_flow_statements" id="8)ZuL:gSae@XZi#`5D,[">
+<field name="FLOW">BREAK</field>
+</block>
+</statement>
+<next>
+<block type="procedures_callnoreturn" id=";RYFwD]9Kt=j#`F7!-Up">
+<mutation name="GYRO_atualizar"/>
+<next>
+<block type="variables_set" id="5vZ+:_|x@~=*W,bqB@1%">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+<value name="VALUE">
+<block type="procedures_callreturn" id="h(kT7ldT+|BX}7g9Cm;9">
+<mutation name="PID_calcular_correcao">
+<arg name="PID_angulo_atual"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="Q2E`9!Be5aIgFOxLXZ@9">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="M}kiTzNcP-f:1#`6K+m)">
+<mutation name="arcade_drive">
+<arg name="esq"/>
+<arg name="dir"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="=4|}^rG+TeZ{shl6,`tE">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+<value name="ARG1">
+<block type="math_single" id="9E3?9K6D!|S6)zjPyJ2:">
+<field name="OP">NEG</field>
+<value name="NUM">
+<shadow type="math_number" id="_.`/+,a*msy(P8trFt=W">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="uct2*;^h,Di$[;otFQeL">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="elapsedTime2_reset" id="0[E8M,Z6W7!-Rv:#S9s)">
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="tyN,gj}Vt=hA`+faGmPL">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="TTV`Z2NORjJE#%.Ai1WC">
+<value name="KEY">
+<shadow type="text" id="Rg8oaP#GLXDbzY^9MM4u">
+<field name="TEXT">ang_vel</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="33Shl,pnl7I6;7gU5Z;3">
+<field name="NUM">123</field>
+</shadow>
+<block type="angularVelocity_getProperty_Number" id="h#IT.q}LBjrM43?-s+4g">
+<field name="PROP">ZRotationRate</field>
+<value name="ANGULAR_VELOCITY">
+<block type="bno055imu_getAngularVelocity" id="0RQql7Ugts0A[y3AOPBh">
+<field name="IDENTIFIER">imuAsBNO055IMU</field>
+<data>{"IDENTIFIER":"imu"}</data>
+<value name="ANGLE_UNIT">
+<shadow type="navigation_typedEnum_angleUnit" id="1$6$KP#/DXFixT!di/*M">
+<field name="ANGLE_UNIT">DEGREES</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="A%CV2#c!#GMtz8vg$5lW">
+<value name="KEY">
+<shadow type="text" id="kI*[$P{;~hSdaw(7^(U)">
+<field name="TEXT">erro</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number">
+<field name="NUM">123</field>
+</shadow>
+<block type="variables_get" id="gu0f5Zd;,8tnpXc.jM)U">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+<next>
+<block type="telemetry_update" id="lzlu6S7IHD50,WYyY5*Q"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="procedures_callnoreturn" id="g[A#LBUx%SvXFR9{j]n1">
+<mutation name="arcade_drive">
+<arg name="esq"/>
+<arg name="dir"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="%Hr^74{`ukZ`,^y}`bAh">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="ARG1">
+<block type="math_number" id="Y0M1sqCS_PBRtsAgN,a/">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="telemetry_addNumericData_Number" id="#k.xqEZh(%{FyG96OHYI" x="-2151" y="642">
+<value name="KEY">
+<shadow type="text" id="b-A#qyGVMy9y2|Uz8sFU">
+<field name="TEXT">Tempo decorrido</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="U8P{qFI(x8b7L)*L}/uZ">
+<field name="NUM">123</field>
+</shadow>
+<block type="elapsedTime2_getProperty_Number" id="8;h^+%|CCL,T{Ffb1}q0">
+<field name="PROP">Milliseconds</field>
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="ehTQ)`=u}`bV{E@ya{q+">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="P9v7_@5|G79;i~JNOg}o">
+<value name="KEY">
+<shadow type="text" id="lC~~bTN#dLXgos)[C~s:">
+<field name="TEXT">ang_inicial</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="##iZL=xlVW`/:sgNr7uh">
+<field name="NUM">123</field>
+</shadow>
+<block type="variables_get" id="huC?#:,S=$CY?{mT26jN">
+<field name="VAR" id="]Y0kTxkgam8y4`=n@P1d">PID_angulo_inicial</field>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="VbF{ULn%!^MR%J6QuCqg">
+<value name="KEY">
+<shadow type="text" id="#=Gpc+P5R4A}b,]}lP:c">
+<field name="TEXT">ang_atual</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number">
+<field name="NUM">123</field>
+</shadow>
+<block type="variables_get" id="$9evqJ8+(E^#~R6Xymc_">
+<field name="VAR" id="srCU,cq]Xu$9,W?bXi=@">PID_angulo_atual</field>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="eCA%6hPOvRXeSuiM0i.h">
+<value name="KEY">
+<shadow type="text" id="Yb_?Cwc8H:DKRLTJ6Y/2">
+<field name="TEXT">aaaaaaaaaaaaaaa</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="wCY+cu]aQ5)gd)8@tskg">
+<field name="NUM">123</field>
+</shadow>
+<block type="math_arithmetic" id="kO|l.`*tk.A9[b!{hY_9">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="aw#SwP_Z1)`UH0U3gQ%_">
+<field name="VAR" id="srCU,cq]Xu$9,W?bXi=@">PID_angulo_atual</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="XL;|F]wtTQ!xjFEjFk$8">
+<field name="VAR" id="]Y0kTxkgam8y4`=n@P1d">PID_angulo_inicial</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+<block type="procedures_defnoreturn" id="Z2_{U8)t_O/)Sl(I#2[a" x="2566" y="437">
+<field name="NAME">GYRO_atualizar</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="variables_set" id="@MM|fZZ?NMFQbB1h.9H6">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+<value name="VALUE">
+<block type="orientation_getProperty_Number" id="#Emk!Q*Ru9RQbDU9mQad">
+<field name="PROP">FirstAngle</field>
+<value name="ORIENTATION">
+<block type="bno055imu_getAngularOrientation" id=",K~z{#iKqc@d*3-5zLtt">
+<field name="IDENTIFIER">imuAsBNO055IMU</field>
+<data>{"IDENTIFIER":"imu"}</data>
+<value name="AXES_REFERENCE">
+<shadow type="navigation_typedEnum_axesReference" id="6(-R]OiQ834LK$ZLYP-^">
+<field name="AXES_REFERENCE">INTRINSIC</field>
+</shadow>
+</value>
+<value name="AXES_ORDER">
+<shadow type="navigation_typedEnum_axesOrder" id="NY$w#UUmbBX0tr6=Hfp:">
+<field name="AXES_ORDER">ZYX</field>
+</shadow>
+</value>
+<value name="ANGLE_UNIT">
+<shadow type="navigation_typedEnum_angleUnit" id="x_)^DPYCVKv0^;n]iO;X">
+<field name="ANGLE_UNIT">DEGREES</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="controls_if" id="?gz`sHwyJnQqy)Pl)/s~">
+<value name="IF0">
+<block type="logic_compare" id="@RZzD6Y3P7s;$r2q@=e%">
+<field name="OP">LT</field>
+<value name="A">
+<block type="math_number" id="a=t0Nh8=[.w`r~1H6wK`">
+<field name="NUM">180</field>
+</block>
+</value>
+<value name="B">
+<block type="math_single" id="I#.96IdTdQo$aoDVYFq[">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number" id="EmSpZ8CRF3^@/8IpUxK%">
+<field name="NUM">9</field>
+</shadow>
+<block type="math_arithmetic" id="q,n||ruFHfQwp-m:n+qy">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number" id="4~eG?jG~I/DxO]B(Ea6;">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id=":;=pjCuEw4Fn(f?Q!SME">
+<field name="VAR" id="?m[kw4#L2iAyh;sIzX/k">GYRO_angulo_anterior</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="-.(e7JeZGA3b{t{caPiN">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="VM*6r+r8]e+L~qfR0]_(">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="controls_if" id="q6u$u};o^l%UGq#y-AXN">
+<mutation else="1"/>
+<value name="IF0">
+<block type="logic_compare" id="cK$i[u87!zKYbv_BbtaZ">
+<field name="OP">GT</field>
+<value name="A">
+<block type="variables_get" id="=x|~K6M4}uH0pBE=tQHZ">
+<field name="VAR" id="?m[kw4#L2iAyh;sIzX/k">GYRO_angulo_anterior</field>
+</block>
+</value>
+<value name="B">
+<block type="variables_get" id="O5XDm?]Tnyy2h|i=;_iC">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="variables_set" id="{T}{L;30XX}Qhr0U_9{:">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="]$5%#7]dT94}U^L`3x20">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="4+L%h$EKbV}5z:H#Z--R">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="L@/W5N@x@W_l{H?yRm[Y">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="f!;~Wrv,5S?dJ@@a5TXn">
+<field name="NUM">1</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="variables_set" id="i|n*Xk2Me4^@aZ*b:4*=">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="tOT?7m4CC])R(6Cv:nR]">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="!bD%?MMR9gFFgVI+XHa^">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="|AQin}6!4_*)K)=UtxUZ">
+<field name="NUM">1</field>
+</shadow>
+</value>
+</block>
+</value>
+</block>
+</statement>
+</block>
+</statement>
+<next>
+<block type="variables_set" id="fU^SA^iO$Yu9cOhG_r.:">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="#g|T7eYqg0|y3j|Sg0|(">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="2OX_QczyP(cb%RC`E%b8">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="-1Pd6L*cVdql3T^}[U/z">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="{WYKGoK$,]uAKp!A$2A}">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="=d(]Nu7)tiN,B]vx.?~f">
+<field name="VAR" id="LW?yR=k|PMb6oAUb:Hti">GYRO_revoluções</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="sa7lp+{Tv`!`01[;lnk9">
+<field name="NUM">360</field>
+</shadow>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="ouY(M(@gR(szpE|n#J.0">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="DxWn5HCZ9ckK`,oM]ad#">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="variables_set" id="$d!:r_}yZs|{51`sifoc">
+<field name="VAR" id="?m[kw4#L2iAyh;sIzX/k">GYRO_angulo_anterior</field>
+<value name="VALUE">
+<block type="variables_get" id="!)2#Ks8w7z]F6p=ri?=c">
+<field name="VAR" id="Ep=ZEyFF0tm#J[,1_{AP">GYRO_angulo_atual</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_callnoreturn" id="p`CcZgFbNVoO{6E/Gk-u" x="441" y="727">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="FA9#F%Iv}5[dSrkRuN}O">
+<field name="NUM">3000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="f7IXudUYB5K9:D785br{">
+<mutation name="girar">
+<arg name="angulo"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="sl|E@h}QKrl64UBmB~f[">
+<field name="NUM">90</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="L?h}[MMoTtYQYf|JNzu9">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="a:65i~:cvi!Wos#B1M2Y">
+<field name="NUM">5000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="5d4jV{($X=b4Pd.-IKn{">
+<mutation name="andar_frente">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="~FjmK%YB[7|]E`:Mk/wA">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id=")-ZQG8uFgTr2$3DeSO_f">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="Z=n+~zqIKHzJ,DSWn=?#">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="Z7z@BXOS^#%h6lAM(o}#">
+<mutation name="girar">
+<arg name="angulo"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="Q@C/M4U9gru--;3UH7uo">
+<field name="NUM">-90</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="Ja:gXAXrsrnj@9JYmuBH">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="k3ue5sWM^w#QRSpu_K}H">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id=":1qzFCIu*lq!D=iUka+9">
+<mutation name="andar_frente">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="Si4l?6`+,bfVY-hWIgZ7">
+<field name="NUM">2000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="Obw4^*:[pux=96X%gTp~">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="$*IvIu^i[_1gX*}cT:Jv">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="+^!GNF}6I4?X#L88b~p#">
+<mutation name="girar">
+<arg name="angulo"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="Uhwv)*U_D8b9W9vbi$98">
+<field name="NUM">-90</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="Rb^~6F@W$5;`+C)?[*1M">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="P,D#EV6r)N?OIO@=9{Ma">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="IF[}==a)?APmf~tdYYAX">
+<mutation name="andar_frente">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="Z7P5ckHKl,XSuOhw}!6^">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="xA|Gh;(cIKg-a:)gt0j#">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="zoRNFP{|Nc010q5T-Dl|">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="u;Ekz4;YrQg1W,ILEqus">
+<mutation name="girar">
+<arg name="angulo"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="TspOiTXz8^=9eHN2:$kS">
+<field name="NUM">-90</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="?gX{5{yFtSZ6!Gkf$.6^">
+<mutation name="espere">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="{)k-o.l9=g!qTy0M/fQT">
+<field name="NUM">1000</field>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="{qWu4M?XUr;99y9iz8Q*">
+<mutation name="andar_frente">
+<arg name="duracao"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="@fvBAL$%DPoaS~|BPnY^">
+<field name="NUM">1000</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+<block type="controls_if" id=".vdw$N;^`1I:h;i;mwFh" x="-657" y="1114">
+<value name="IF0">
+<block type="logic_compare" id="p)VeEzn!#ix)gJOo~QBp">
+<field name="OP">EQ</field>
+<value name="A">
+<block type="math_number" id="rMw507gpRqI`zhV[atHx">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="B">
+<block type="variables_get" id="0w$lz(Vx[*Uaba:!yZ53">
+<field name="VAR" id="z2R#}fbo-#9%Rrst/.IB">0_so_uma_vez</field>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="procedures_callnoreturn" id="Sf*%E6wtqB~oA?~HW{9.">
+<mutation name="girar">
+<arg name="angulo"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id="TTH9z8kWGv([NmRkdswN">
+<field name="NUM">90</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="p8Qm]WT9F){qFK?S_9|7">
+<field name="VAR" id="z2R#}fbo-#9%Rrst/.IB">0_so_uma_vez</field>
+<value name="VALUE">
+<block type="math_number" id="hK/@*d|w(,Nsny),MS45">
+<field name="NUM">1</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_defnoreturn" id="P1#RS/pvT+RXGpftAca:" x="2557" y="1097">
+<mutation>
+<arg name="PID_setpoint" varid="q!c2di./)D~w9g5U)Cjm"/>
+</mutation>
+<field name="NAME">PID_inicializar</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="variables_set" id="`e^KFH.#SXDH%)C%AH0;">
+<field name="VAR" id="]Y0kTxkgam8y4`=n@P1d">PID_angulo_inicial</field>
+<value name="VALUE">
+<block type="variables_get" id="^3@@a!Z6{w{Yc~oBU8{#">
+<field name="VAR" id="q!c2di./)D~w9g5U)Cjm">PID_setpoint</field>
+</block>
+</value>
+<next>
+<block type="comment" id="t5#xS,8$-d30wNXQCHex">
+<field name="COMMENT">Edite os coeficientes diretamente aqui</field>
+<next>
+<block type="variables_set" id="e?P3`y+U}RJLuO_cj0P4">
+<field name="VAR" id="L~)C1|%P[HC$H4_$$+pE">PID_Kp</field>
+<value name="VALUE">
+<block type="math_number" id="@[)aTU+(d:uog$~~?1?:">
+<field name="NUM">0.03</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="Gm%=NpBO9MbU)LdI2Ww_">
+<field name="VAR" id="B|D#KnQoz0?s`#%{7e(X">PID_Kd</field>
+<value name="VALUE">
+<block type="math_number" id="Jx5Ou,KFjYVLnbMdD3s7">
+<field name="NUM">-120</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="cv(Gul/=V0`!pISz7`1k">
+<field name="VAR" id="4#D}sC|xH3[c`;;obF);">PID_Ki</field>
+<value name="VALUE">
+<block type="math_number" id="m=+F~t~,aqj84h!AzbZC">
+<field name="NUM">0.0001</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="Po1r|$c21.19{EbA2eg[">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+<value name="VALUE">
+<block type="elapsedTime2_create_withResolution" id="r}KmadYCq|HsKn,c7`?=">
+<value name="RESOLUTION">
+<shadow type="elapsedTime2_typedEnum_resolution" id="!m9(_i249^`5VLA5mg|-">
+<field name="RESOLUTION">MILLISECONDS</field>
+</shadow>
+</value>
+</block>
+</value>
+<next>
+<block type="elapsedTime2_reset" id="I]@kVe:M0$/+c+N;*?*S">
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="l~4=,wBNG1Cx,jH*Nrpb">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="F+GA3(G(XNh^d@VLi0#G">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+<value name="VALUE">
+<block type="math_number" id="P1^@S|;h}tnAx[!fY=B3">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="LQxXdvpoljK,4n9Ljj1^">
+<field name="VAR" id="$WI8HdC:vkc,_ks],[2%">PID_erro_anterior</field>
+<value name="VALUE">
+<block type="math_number" id="wSJAtfnu})}eNLu7AGJ/">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="variables_set" id="@f@!5l3{L~r|[V3ws!Rk">
+<field name="VAR" id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</field>
+<value name="VALUE">
+<block type="math_number" id="6#=4pLn:mt.UO^/JDXFp">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="procedures_defnoreturn" id="y=I0`c87bXhPo5fEG20Q" x="-1178" y="1420">
+<mutation>
+<arg name="duracao" varid="Ep@fStdJ[^b{U]n|`WOL"/>
+</mutation>
+<field name="NAME">andar_frente</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="procedures_callnoreturn" id="mV7;dxY1Cud*aMYALp)6">
+<mutation name="PID_inicializar">
+<arg name="PID_setpoint"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="gRWy-zU1/2R$h,nNj[.n">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+<next>
+<block type="elapsedTime2_reset" id="qhq.3aGUV74:nwPC|%w-">
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="jNS}`)FzQIyt)F3.*f9H">
+<field name="VAR" id="zK|!k5quET#bUC*$j1IC">tempo</field>
+</block>
+</value>
+<next>
+<block type="controls_whileUntil" id="fEt^q;:Ix:CWL|BCbsv;">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="D$B7Zk*(jD0S*87pSAC("/>
+</value>
+<statement name="DO">
+<block type="controls_if" id="k6/VuqDcOYEE(4{63PU@">
+<value name="IF0">
+<block type="logic_compare" id="QFDj4`]NaqhOTRvcy;oo">
+<field name="OP">LT</field>
+<value name="A">
+<block type="variables_get" id="AW}_@KLkz=o/^^?@Yxr%">
+<field name="VAR" id="Ep@fStdJ[^b{U]n|`WOL">duracao</field>
+</block>
+</value>
+<value name="B">
+<block type="elapsedTime2_getProperty_Number" id=";u_,,G60JWKW3D]]mv1r">
+<field name="PROP">Milliseconds</field>
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="M/$Y~KNcW;YXTxW2)61q">
+<field name="VAR" id="zK|!k5quET#bUC*$j1IC">tempo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="controls_flow_statements" id="HPU{QJFtPB?j$A:HrP2|">
+<field name="FLOW">BREAK</field>
+</block>
+</statement>
+<next>
+<block type="procedures_callnoreturn" id="+#GR8fX;85U{h,t)$/=h">
+<mutation name="GYRO_atualizar"/>
+<next>
+<block type="variables_set" id="p*Zrc^.](ZU$EhaqXw@,">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+<value name="VALUE">
+<block type="procedures_callreturn" id="^g)UIngbsprxr]Ye3z#?">
+<mutation name="PID_calcular_correcao">
+<arg name="PID_angulo_atual"/>
+</mutation>
+<value name="ARG0">
+<block type="variables_get" id="nEg-LKzEcy|l}b9[$)3Z">
+<field name="VAR" id="*0iZOvp7WBgR,-4/Ep0U">angulo_real</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="procedures_callnoreturn" id="/SPg!GsghbUFnLFzP{d1">
+<mutation name="arcade_drive">
+<arg name="esq"/>
+<arg name="dir"/>
+</mutation>
+<value name="ARG0">
+<block type="math_arithmetic" id="9aaL4r]J=t,?p:aO#:zR">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id=")ww!7$GNfh#@lEbMNYrg">
+<field name="VAR" id="!hn=RwIxEs_{N`G:^0@+">forca_motor</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="SfsRUPuk?MWDD9!Srep+">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+</block>
+</value>
+<value name="ARG1">
+<block type="math_arithmetic" id="B=#]-pmKZ^*n26Dp9GT4">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="7EdX=Z.+rbs=E;VaNs2j">
+<field name="VAR" id="!hn=RwIxEs_{N`G:^0@+">forca_motor</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="/F;TdlB5;OL7!#qH9pK$">
+<field name="VAR" id="Hsq^vjf_g/THs74Fd/h]">correcao</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+<next>
+<block type="procedures_callnoreturn" id="34UFR3%=QS0$5Lhti2pt">
+<mutation name="arcade_drive">
+<arg name="esq"/>
+<arg name="dir"/>
+</mutation>
+<value name="ARG0">
+<block type="math_number" id=".gmC7WeNEEJOHV~}0Tnl">
+<field name="NUM">0</field>
+</block>
+</value>
+<value name="ARG1">
+<block type="math_number" id="tzuyfWV`kWcwiENXnw%v">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="math_change" id="+M`Sd`nQ]`#?gOvPPZRY" x="2578" y="1407">
+<field name="VAR" id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</field>
+</block>
+<block type="procedures_defreturn" id="8mlqy6`f#+([W7-I/nif" x="2560" y="1512">
+<mutation>
+<arg name="PID_angulo_atual" varid="srCU,cq]Xu$9,W?bXi=@"/>
+</mutation>
+<field name="NAME">PID_calcular_correcao</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="variables_set" id="R-B(32I/:%4|]$:XQzz%">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="lBw)^3}HCrO_-D{Lg-|Q">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number" id="@E!0Ot5BmUEXk*FF,zCk">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="MkbbyXm|f{wR5H6-6EDs">
+<field name="VAR" id="srCU,cq]Xu$9,W?bXi=@">PID_angulo_atual</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="+RaJW6Xv.wQLfN~dBY!l">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="*b,@B]r%W*[!|ynn2p{B">
+<field name="VAR" id="]Y0kTxkgam8y4`=n@P1d">PID_angulo_inicial</field>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="variables_set" id="guU*sot8cCp;i5USfVh%">
+<field name="VAR" id="7}4|UmsD,fVDI?*%eBGy">PID_resultado</field>
+<value name="VALUE">
+<block type="math_arithmetic" id=")|AqVGr%g*DSYIT_+H,!">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="KI)oM:D9A+t]^FV^mDb(">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="tSQ5)1+ly{iL,^7hJ/~f">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="u}XswTw#l)6pj!NmY.V2">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="l2dkTviKXi:rB~hvuY{`">
+<field name="VAR" id="L~)C1|%P[HC$H4_$$+pE">PID_Kp</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="0f5?|?!*unt?CVJRo64B">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_arithmetic" id="#wlm1p}|cD+}rc#7nl8G">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="xAaVuqa.K[7d!Qc)65js">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="czomfA_b;_pPvM]tbdUs">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="A7d]G=ZD2d1W^T1}@5$:">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="|GiBWyorcMXLN+02^hZL">
+<field name="VAR" id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="38h`y#z*Q90rc~6~%d{#">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="KDA_A~#Iq4SW.7x#%|8`">
+<field name="VAR" id="4#D}sC|xH3[c`;;obF);">PID_Ki</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="}k2/)m$oj-Mi2.=-?:O:">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="$m9*bkN$m%q-8/ly-JY4">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="405EN}B,o9;6.|c/$v`J">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="OSv;I#A}-$=nYMl4fbip">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="@RV9hLW3%Vl#`o~rYsx9">
+<field name="VAR" id="B|D#KnQoz0?s`#%{7e(X">PID_Kd</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id=":.621]9QX0)OBEL!oGJ7">
+<field name="VAR" id="L~)C1|%P[HC$H4_$$+pE">PID_Kp</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="F-D4VPvt85.e%(rk=t+r">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="%EL,8E]dRGexasn|g1d.">
+<field name="OP">DIVIDE</field>
+<value name="A">
+<shadow type="math_number" id="OQ=iy0.4m$p0):u5Xlqk">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="Vf^:,mY@v3{pD*8}+{el">
+<field name="OP">MINUS</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="bOO2#~vQe%kj]@hmrm^+">
+<field name="VAR" id="$WI8HdC:vkc,_ks],[2%">PID_erro_anterior</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="0FKoi+yTj9azSg;grn,%">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="RxR{1(f3*a|PX:};5cMT">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="F0ISXwK4v%b/N0E{`?`t">
+<field name="NUM">1</field>
+</shadow>
+<block type="elapsedTime2_getProperty_Number" id="}!@2;G!dG=sEb?Rz!Ye3">
+<field name="PROP">Milliseconds</field>
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="{}Y(*1?v4B$R%A[!Gc0f">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<next>
+<block type="controls_if" id="g/)7{=5ZKq=*wwL,h=19">
+<value name="IF0">
+<block type="logic_compare" id=")+i)#V%n^OyjnSsleg!5">
+<field name="OP">GT</field>
+<value name="A">
+<block type="math_number" id="OEJ_Wr!dv6YP%00~h*n[">
+<field name="NUM">1</field>
+</block>
+</value>
+<value name="B">
+<block type="math_single" id="zkgT)}4}mH4Sj1K.=|7I">
+<field name="OP">ABS</field>
+<value name="NUM">
+<shadow type="math_number" id="c+zw54WsyZ`+I)LnXd?D">
+<field name="NUM">9</field>
+</shadow>
+<block type="variables_get" id="yrrtC!BGb*/1rGx:zQS;">
+<field name="VAR" id="7}4|UmsD,fVDI?*%eBGy">PID_resultado</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="variables_set" id="F)}h*U9g0[*7^Uqi!6]=">
+<field name="VAR" id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</field>
+<value name="VALUE">
+<block type="math_arithmetic" id="nq-$K{;|i/?X!CB])aup">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="O:F-5h1aVcI[a+k$,3O9">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="@mzp*|3h1/p_g?[YjYX1">
+<field name="VAR" id="`2TY`TUMQDG*~};L/g_]">PID_erro_acumulado</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="D,Ij.P$;%[=/~D?MO^e5">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="8`2U;#U{=o]@`[Yvu]w$">
+<field name="OP">MULTIPLY</field>
+<value name="A">
+<shadow type="math_number" id="8`*V!OrF+Ku/]UPjitm7">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="m`)z85`=9zx2Ka4WQO%r">
+<field name="OP">DIVIDE</field>
+<value name="A">
+<shadow type="math_number" id="b!,lZ@O_Lm]:s+?RRst!">
+<field name="NUM">1</field>
+</shadow>
+<block type="math_arithmetic" id="s4ipKP?;UP7-9]]Mh^Nd">
+<field name="OP">ADD</field>
+<value name="A">
+<shadow type="math_number" id="vwh=n9;)?sTfsA0H#,Hd">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="`1?SYH|N:~jo8)uQfYG6">
+<field name="VAR" id="$WI8HdC:vkc,_ks],[2%">PID_erro_anterior</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="^cA{]7VWEw0SrWw4F]~X">
+<field name="NUM">1</field>
+</shadow>
+<block type="variables_get" id="4XQ9X/|=q-GmekIGs-a|">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="(S;[*t%3^F[qeH*rY|-3">
+<field name="NUM">2</field>
+</shadow>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number" id="CKDtw(=_j(aTP:+I%~;W">
+<field name="NUM">2</field>
+</shadow>
+<block type="elapsedTime2_getProperty_Number" id="h]2%TwVuuQPC~Ea)IQ#Y">
+<field name="PROP">Milliseconds</field>
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="x`e;m2uGQk+IE$ZBtaku">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</statement>
+<next>
+<block type="variables_set" id="hkcNKtF{zp,+1fX.HQbn">
+<field name="VAR" id="$WI8HdC:vkc,_ks],[2%">PID_erro_anterior</field>
+<value name="VALUE">
+<block type="variables_get" id="^_natT3e;y.Z]~.t#;+j">
+<field name="VAR" id="3)0]dU6Rry!PtxyV5T01">PID_erro</field>
+</block>
+</value>
+<next>
+<block type="elapsedTime2_reset" id="t-a]#ntT(Aj#BiD*jeey">
+<value name="ELAPSED_TIME">
+<block type="variables_get" id=",0,PWx=Zj]gLSu?gRY)I">
+<field name="VAR" id="3%=iQ/F2P2$gjyi6HA^;">PID_tempo</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+<value name="RETURN">
+<block type="variables_get" id="Njgp6Y58T,*?hK`_H*jE">
+<field name="VAR" id="7}4|UmsD,fVDI?*%eBGy">PID_resultado</field>
+</block>
+</value>
+</block>
+<block type="procedures_defnoreturn" id="}*I~*610de$%3(5i1{C9" x="-1091" y="2018">
+<mutation>
+<arg name="duracao" varid="Ep@fStdJ[^b{U]n|`WOL"/>
+</mutation>
+<field name="NAME">espere</field>
+<comment pinned="false" h="80" w="160">Describe this function...</comment>
+<statement name="STACK">
+<block type="controls_whileUntil" id="csi=V)RGFb_{b8e|r-dF">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="{m?sFDqy:Q0g4f6Q(5/*"/>
+</value>
+<statement name="DO">
+<block type="controls_if" id="+4|~)S_W`nqm%w5IB[!H">
+<value name="IF0">
+<block type="logic_compare" id="0;~EE)kyGkKF2xZN%yZa">
+<field name="OP">LT</field>
+<value name="A">
+<block type="variables_get" id="`M,.M}QoDsadsv!/t#4u">
+<field name="VAR" id="Ep@fStdJ[^b{U]n|`WOL">duracao</field>
+</block>
+</value>
+<value name="B">
+<block type="elapsedTime2_getProperty_Number" id="W-@*$3]wl6BiQaA}^T8?">
+<field name="PROP">Milliseconds</field>
+<value name="ELAPSED_TIME">
+<block type="variables_get" id="}#!,$TGRA*.EVAjjE~Hr">
+<field name="VAR" id="zK|!k5quET#bUC*$j1IC">tempo</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="controls_flow_statements" id="Jt=]1HAMr5k2lLm~|xZN">
+<field name="FLOW">BREAK</field>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</xml>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Extra>
+<OpModeMeta flavor="TELEOP" group="" autoTransition="" />
+<Enabled value="true" />
+</Extra>
