@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoController;
-import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.firstinspires.ftc.teamcode.Actuators.Arm;
 import org.firstinspires.ftc.teamcode.Actuators.ArmPos;
@@ -13,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Actuators.Claw;
 import org.firstinspires.ftc.teamcode.Actuators.DriveTrain;
 
 @TeleOp(name="BotTeleOp", group="Linear Opmode")
+@Disabled
 
 public class BotTeleOp extends LinearOpMode {
 
