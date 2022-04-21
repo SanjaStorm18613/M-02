@@ -28,6 +28,7 @@ public class BotAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         telemetry.addData("Status", "Starting");
         telemetry.update();
         FieldPosition fieldPosition;
@@ -36,8 +37,8 @@ public class BotAuto extends LinearOpMode {
 
         bot        = new Bot(this, hardwareMap, telemetry);
 
-        /*
-        while (!isStarted() && locElement == CustomElementLocation.NOT_FOUND) {
+
+        while (!isStarted()) {
 
             locElement = bot.getCustomElementLocation();
 
@@ -46,16 +47,15 @@ public class BotAuto extends LinearOpMode {
 
         }
 
-         */
-
 
         telemetry.addData("Status", "Starting Vuforia");
         telemetry.addData("Position Element Detected", locElement);
         telemetry.update();
 
-        //bot.stopDetectionElement();
+        bot.stopDetectionElement();
 
-        //bot.initVuforia();
+        bot.initVuforia();
+
         telemetry.addData("Status", "Waiting for start");
         telemetry.addData("Vuforia", "Complete");
         telemetry.addData("Position Element Detected", locElement);
@@ -67,26 +67,32 @@ public class BotAuto extends LinearOpMode {
 
         if (opModeIsActive()) {
 
+            /*
             while (opModeIsActive()){
 
                 bot.rotate(rotateVel, 0);
 
             }
-            /*
+            */
 
+            //ABRE GARRA
             bot.claw(.4);
             bot.espere(clawStop);
 
+            //LEVANTA BRAÇO
             bot.setArmPos(armVel, ArmPos.ONE);
 
+            //AVANÇA
             bot.move(moveVel, 60, false);
 
+            //GIRA
             bot.rotate(rotateVel, 85);
 
-
+            //BUSCA IMAGEM
             fieldPosition = bot.getFieldPosition();
 
 
+            //GIRA ATE ACHAR IMAGEM
             if (fieldPosition == FieldPosition.NOT_FOUND) {
 
                 bot.rotate(rotateVel, 95);
@@ -94,11 +100,14 @@ public class BotAuto extends LinearOpMode {
                 fieldPosition = bot.getFieldPosition();
                 fieldPosition = fieldPosition == FieldPosition.NOT_FOUND ?
                                                     FieldPosition.R_WALL : fieldPosition;
+
             }
 
+            //PARA BUSCA
             bot.stopVuforia();
 
 
+            //EXECUTA TRAJETO
             switch (fieldPosition) {
 
                 case B_STORAGE:
@@ -118,14 +127,13 @@ public class BotAuto extends LinearOpMode {
                     break;
 
             }
-        */
         }
-
     }
 
 
     private void botShipping () {
 
+        //LAVANTA NIVEL DETECTADO
         if (locElement == CustomElementLocation.CENTER) {
 
             bot.setArmPos(armVel, ArmPos.TWO);
@@ -133,18 +141,21 @@ public class BotAuto extends LinearOpMode {
         }
         else if (locElement == CustomElementLocation.RIGHT) {
 
-            bot.setArmPos(armVel, ArmPos.ONE);
+            bot.setArmPos(armVel, ArmPos.THREE);
 
         }
 
-
+        //AVANÇA
         bot.move(moveVel, botShipgMove, false);
 
+        //LIBERA PEÇA
         bot.claw(0.65);
         bot.espere(clawStop);
 
+        //VOLTA
         bot.move(moveVel, -botShipgMove, false);
 
+        //ABAIXA
         bot.setArmPos(armVel, ArmPos.ONE);
 
     }
@@ -152,44 +163,62 @@ public class BotAuto extends LinearOpMode {
 
     private void autoBStorage (){
 
+        //GIRA
         bot.rotate(rotateVel,-122);
 
+        //ENTREGA
         botShipping();
 
+        //GIRA
         bot.rotate(rotateVel,35);
 
+        //VOLTA
         bot.move(moveVel, -100, false);
+
     }
 
 
     private void autoRStorage (){
 
+        //GIRA
         bot.rotate(rotateVel,122);
 
+        //ENTREGA
         botShipping();
 
+        //GIRA
         bot.rotate(rotateVel,-35);
 
+        //VOLTA
         bot.move(moveVel, -100, false);
+
     }
 
 
     private void autoBWall (){
 
+        //GIRA
         bot.rotate(rotateVel,-140);
 
+        //ENTREGA
         botShipping();
 
+        //ABAIXA
         bot.setArmPos(armVel, ArmPos.COLECT);
 
+        //GIRA
         bot.rotate(rotateVel,-34);
 
+        //VOLTA
         bot.move(moveVel, -75, false);
 
+        //AVANÇA LATERAL
         bot.move(moveVel, -shipgDuckMove, true);
 
+        //GIRA CARROSSEL
         bot.rotationSystem(-0.2, rotatSys);
 
+        //VOLTA LATERAL
         bot.move(moveVel, shipgDuckMove + 10, true);
 
     }
@@ -197,22 +226,28 @@ public class BotAuto extends LinearOpMode {
 
     private void autoRWall (){
 
+        //GIRA
         bot.rotate(rotateVel,-128);
 
+        //ENTREGA
         botShipping();
 
         bot.setArmPos(armVel, ArmPos.COLECT);
 
+        //GIRA
         bot.rotate(rotateVel,-100);
 
+        //AVANÇA LATERAL
         bot.move(moveVel, -shipgDuckMove, true);
 
+        //GIRA CARROSSEL
         bot.rotationSystem(0.2, rotatSys);
 
+        //VOLTA LATERAL
         bot.move(moveVel, shipgDuckMove - 30, true);
 
+        //VOLTA
         bot.move(moveVel, -50, false);
 
     }
-
 }
