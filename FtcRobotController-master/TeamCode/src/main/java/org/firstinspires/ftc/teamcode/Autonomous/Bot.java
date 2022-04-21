@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Actuators.Arm;
 import org.firstinspires.ftc.teamcode.Actuators.ArmPos;
 import org.firstinspires.ftc.teamcode.Actuators.DriveTrain;
@@ -65,20 +67,12 @@ public class Bot {
         driveTrain.relaseEncPos();
 
 
-        if (horMove){
-
-            encPos = (driveTrain.encodertFE - driveTrain.encodertTE) / 2.0 + dist * 25.5;
-
-        }
-        else {
-
-            encPos = (driveTrain.encodertFE + driveTrain.encodertFD) / 2.0 + dist * 21.8;
-
-        }
+        if (horMove) encPos = (driveTrain.encodertFE - driveTrain.encodertTE) / 2.0 + dist * 25.5;
+        else         encPos = (driveTrain.encodertFE + driveTrain.encodertFD) / 2.0 + dist * 21.8;
 
 
-        yawPID  = new PID(gyro.getAngle(), .05, 5.0, .000001);
-        distPID = new PID(encPos, -.001, 50.0, 0);
+        yawPID  = new PID(gyro.getAngle(), 0.03, 0.0, 0.0000);
+        distPID = new PID(encPos, .0055, 0.01, 0.0);
 
 
         while (opMode.opModeIsActive()) {
@@ -105,31 +99,38 @@ public class Bot {
             yawCorrecao  = yawPID.calcularCorrecao(angulo);
             distCorrecao = distPID.calcularCorrecao(encPos);
 
+            telemetry.addData("yaw", yawCorrecao);
+
+
             distCorrecao = Math.min(Math.abs(distCorrecao), powerMotor + 0.2) * signum(distCorrecao);
 
 
             if (Math.abs(distCorrecao) <= 0.01 && Math.abs(yawCorrecao) <= 0.01) break;
 
 
-            distCorrecao = distCorrecao * forcaMotorInicial;
+            distCorrecao *= forcaMotorInicial;
+
 
             if (forcaMotorInicial < 1) {
-                forcaMotorInicial = 0.05 * forcaMotorInicial + forcaMotorInicial;
+                forcaMotorInicial = 0.07 * forcaMotorInicial + forcaMotorInicial;
                 forcaMotorInicial = Math.min(forcaMotorInicial, 1);
             }
 
-
+            telemetry.addData("dist", distCorrecao);
+            telemetry.update();
             if (horMove){
 
-                driveTrain.omniDrive(distCorrecao, 0 , yawCorrecao);
+                driveTrain.omniDrive(distCorrecao, 0 , -yawCorrecao);
+                //driveTrain.arcadeDrive(0.0, 0.0);
+
 
             }
             else {
 
-                driveTrain.arcadeDrive(distCorrecao, yawCorrecao);
+                driveTrain.arcadeDrive(-distCorrecao, -yawCorrecao);
+                //driveTrain.arcadeDrive(0.0, 0.0);
 
             }
-
 
             telemetry.update();
 
@@ -164,7 +165,7 @@ public class Bot {
         //angulo            += gyroContAng;
 
 
-        rotatePID = new PID(this.giroAnterior, 0.7, -1.0, 0.00001);
+        rotatePID = new PID(this.giroAnterior, 0.03, 0.0, 0.00001);
 
 
         while (opMode.opModeIsActive()) {
@@ -174,24 +175,25 @@ public class Bot {
 
             gyroContAng = (int) gyro.getContinuosAngle();
 
-            //if (
-            //    Math.abs(this.giroAnterior - gyroContAng) <= 1 &&
-            //    0.5 >= Math.abs(((Gyroscope) gyro.imu)
-            //                    .getAngularVelocity(AngleUnit.DEGREES)
-             //                   .zRotationRate)
-            //) break;
+            if (
+                Math.abs(this.giroAnterior - gyroContAng) <= 2 &&
+                0.5 >= Math.abs(((Gyroscope) gyro.imu)
+                                .getAngularVelocity(AngleUnit.DEGREES)
+                                .zRotationRate)
+            ) break;
 
 
             yawCorrecao = rotatePID.calcularCorrecao(gyroContAng);
             yawCorrecao = Math.min(Math.abs(forcaMotor * yawCorrecao), 1) * yawCorrecao;
 
 
-            driveTrain.arcadeDrive(0, yawCorrecao);
+            telemetry.addData("yaw", -yawCorrecao);
 
+            driveTrain.arcadeDrive(0, -yawCorrecao);
 
             //telemetry.addData("Ang_vel", ((Gyroscope) gyro.imu).getAngularVelocity(AngleUnit.DEGREES).zRotationRate);
             //telemetry.addData("Ang_Erro", angulo - gyroContAng);
-            //telemetry.addData("Angulo", gyroContAng);
+            telemetry.addData("Angulo", gyroContAng);
 
             telemetry.addData("erroKp", String.valueOf(rotatePID.erroKp));
             telemetry.addData("erroKi", String.valueOf(rotatePID.erroKi));
@@ -295,4 +297,5 @@ public class Bot {
 
     public CustomElementLocation getCustomElementLocation (){ return detector.getElementDetection(); }
 
+    public int getTickLoss () { return arm.tickLoss; }
 }

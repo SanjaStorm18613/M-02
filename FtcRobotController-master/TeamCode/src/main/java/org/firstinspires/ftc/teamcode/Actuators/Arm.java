@@ -16,6 +16,8 @@ public class Arm {
 
     public ArmPos armPos;
 
+    public int tickLoss;
+
     public Arm (HardwareMap hwM, LinearOpMode opM){
 
         opMode = opM;
@@ -39,42 +41,41 @@ public class Arm {
         this.armPos = pos;
 
         int position;
-        int tickLoss = 0;
+        this.tickLoss = 0;
 
         switch (pos){
             case COLECT:
+            default:
                 position = 0;
                 break;
             case ONE:
-            default:
-                position = 160;
+                position = 120;
                 break;
             case TWO:
-                position = 300;
+                position = 250;
                 break;
             case THREE:
-                position = 330;
+                position = 300;
                 break;
         }
 
 
         arm.setTargetPosition(position);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setVelocity(forcaMotor * 2300);
+        arm.setVelocity(forcaMotor * 2000);
 
         if (armLimit.isPressed()) {
 
             while (opMode.opModeIsActive() && armLimit.isPressed()) {
 
-                tickLoss = arm.getCurrentPosition();
+                this.tickLoss = arm.getCurrentPosition();
 
             }
-
-            arm.setTargetPosition(position + tickLoss);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setVelocity(forcaMotor * 2300);
-
         }
+
+        arm.setTargetPosition(position + this.tickLoss);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setVelocity(forcaMotor * 2000);
 
 
     }

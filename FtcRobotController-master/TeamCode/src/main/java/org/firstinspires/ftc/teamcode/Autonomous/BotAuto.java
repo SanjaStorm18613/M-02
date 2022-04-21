@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Detection.CustomElementLocation
 import org.firstinspires.ftc.teamcode.Autonomous.Detection.FieldPosition;
 
 
-@Autonomous(name="AndroidAuto", group="Linear Opmode")
+@Autonomous(name="BotAuto", group="Linear Opmode")
 
 public class BotAuto extends LinearOpMode {
 

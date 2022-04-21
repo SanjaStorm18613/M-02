@@ -66,7 +66,7 @@ public class Detection {
         camLed.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-        //initDetectionElement();
+        initDetectionElement();
 
     }
 
