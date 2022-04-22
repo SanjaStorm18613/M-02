@@ -39,7 +39,7 @@ public class BotTeleOp extends LinearOpMode {
         telemetry.update();
 
         driveTrain = new DriveTrain(hardwareMap);
-        arm        = new Arm(hardwareMap, this);
+        arm        = new Arm(hardwareMap);
         claw       = new Claw(hardwareMap, this);
         carousel   = hardwareMap.get(DcMotor.class, "Carrossel");
 
@@ -58,6 +58,7 @@ public class BotTeleOp extends LinearOpMode {
 
                 if (gamepad1.left_bumper && upPos){
 
+                    /*
                     switch (arm.armPos){
 
                         case THREE:
@@ -92,6 +93,8 @@ public class BotTeleOp extends LinearOpMode {
                             break;
 
                     }
+
+                     */
 
                 }
                 downPos = !gamepad1.right_bumper;

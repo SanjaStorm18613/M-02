@@ -10,17 +10,12 @@ public class Arm {
 
     private final TouchSensor armLimit;
     private final DcMotorEx arm;
-    private final LinearOpMode opMode;
 
     private boolean limitPress;
 
-    public ArmPos armPos;
 
-    public int tickLoss;
+    public Arm (HardwareMap hwM){
 
-    public Arm (HardwareMap hwM, LinearOpMode opM){
-
-        opMode = opM;
 
         limitPress = false;
         armLimit = hwM.get(TouchSensor.class, "armLimit");
@@ -32,16 +27,11 @@ public class Arm {
         arm.setDirection(DcMotorEx.Direction.FORWARD);
         arm.setTargetPositionTolerance(10);
 
-        this.armPos = ArmPos.COLECT;
-
     }
 
     public void setArmPos(double forcaMotor, ArmPos pos){
 
-        this.armPos = pos;
-
         int position;
-        this.tickLoss = 0;
 
         switch (pos){
             case COLECT:
@@ -55,7 +45,7 @@ public class Arm {
                 position = 250;
                 break;
             case THREE:
-                position = 300;
+                position = 400;
                 break;
         }
 
@@ -64,36 +54,24 @@ public class Arm {
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setVelocity(forcaMotor * 2000);
 
-        if (armLimit.isPressed()) {
-
-            while (opMode.opModeIsActive() && armLimit.isPressed()) {
-
-                this.tickLoss = arm.getCurrentPosition();
-
-            }
-        }
-
-        arm.setTargetPosition(position + this.tickLoss);
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        arm.setVelocity(forcaMotor * 2000);
-
-
     }
 
     public void setArmVel(double forcaMotor){
 
-        if (arm.getCurrentPosition() <= 100 && arm.getTargetPosition() == 0){
+        if (arm.getCurrentPosition() <= 50 && arm.getTargetPosition() == 0){
 
             arm.setVelocity(0);
 
-        } else if (arm.getCurrentPosition() < arm.getTargetPosition() + 10 &&
+        }
+        else if (arm.getCurrentPosition() < arm.getTargetPosition() + 10 &&
+                 arm.getCurrentPosition() > arm.getTargetPosition() - 10) {
 
-                arm.getCurrentPosition() > arm.getTargetPosition() - 10) {
             arm.setVelocity(350);
 
-        } else {
+        }
+        else {
 
-            arm.setVelocity(forcaMotor * 2300.0);
+            arm.setVelocity(forcaMotor * 2000.0);
 
         }
 

@@ -29,6 +29,7 @@ public class BotBlueStorage extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         telemetry.addData("Status", "Starting");
         telemetry.update();
 
@@ -42,6 +43,7 @@ public class BotBlueStorage extends LinearOpMode {
             locElement = bot.getCustomElementLocation();
 
             telemetry.addData("Status", "Detecting");
+            telemetry.addData("Position Element Detected", locElement);
             telemetry.update();
 
         }
@@ -62,16 +64,6 @@ public class BotBlueStorage extends LinearOpMode {
             bot.claw(.4);
             bot.espere(clawStop);
 
-            //LEVANTA BRAÇO
-            bot.setArmPos(armVel, ArmPos.ONE);
-
-            //AVANÇA
-            bot.move(moveVel, 60, false);
-
-            //GIRA
-            bot.rotate(rotateVel,-140);
-
-
             //LAVANTA NIVEL DETECTADO
             if (locElement == CustomElementLocation.CENTER) {
 
@@ -83,25 +75,39 @@ public class BotBlueStorage extends LinearOpMode {
                 bot.setArmPos(armVel, ArmPos.THREE);
 
             }
+            else {
+
+                bot.setArmPos(armVel, ArmPos.ONE);
+
+            }
 
             //AVANÇA
-            bot.move(moveVel, botShipgMove, false);
+            bot.move(moveVel, 60, false);
+
+            //GIRA
+            bot.rotate(rotateVel,60);
+
+            //AVANÇA
+            bot.move(moveVel, 29, false);
 
             //LIBERA PEÇA
             bot.claw(0.65);
             bot.espere(clawStop);
 
             //VOLTA
-            bot.move(moveVel, -botShipgMove, false);
+            bot.move(moveVel, -25, false);
 
             //ABAIXA
             bot.setArmPos(armVel, ArmPos.ONE);
 
             //GIRA
-            bot.rotate(rotateVel,35);
+            bot.rotate(rotateVel,30);
 
             //VOLTA
-            bot.move(moveVel, -100, false);
+            bot.move(moveVel, -140, false);
+
+            //ABAIXA
+            bot.setArmPos(armVel, ArmPos.COLECT);
 
         }
     }

@@ -17,8 +17,8 @@ public class BotRedStorage extends LinearOpMode {
 
     private CustomElementLocation locElement;
 
-    private final double moveVel    = 0.6;
-    private final double rotateVel  = 0.5;
+    private final double moveVel    = 0.9;
+    private final double rotateVel  = 0.55;
     private final double armVel     = 0.4;
 
     private final int clawStop      = 1000;
@@ -42,6 +42,7 @@ public class BotRedStorage extends LinearOpMode {
             locElement = bot.getCustomElementLocation();
 
             telemetry.addData("Status", "Detecting");
+            telemetry.addData("Position Element Detected", locElement);
             telemetry.update();
 
         }
@@ -62,16 +63,6 @@ public class BotRedStorage extends LinearOpMode {
             bot.claw(.4);
             bot.espere(clawStop);
 
-            //LEVANTA BRAÇO
-            bot.setArmPos(armVel, ArmPos.ONE);
-
-            //AVANÇA
-            bot.move(moveVel, 60, false);
-
-            //GIRA
-            bot.rotate(rotateVel,-140);
-
-
             //LAVANTA NIVEL DETECTADO
             if (locElement == CustomElementLocation.CENTER) {
 
@@ -83,25 +74,39 @@ public class BotRedStorage extends LinearOpMode {
                 bot.setArmPos(armVel, ArmPos.THREE);
 
             }
+            else {
+
+                bot.setArmPos(armVel, ArmPos.ONE);
+
+            }
 
             //AVANÇA
-            bot.move(moveVel, botShipgMove, false);
+            bot.move(moveVel, 60, false);
+
+            //GIRA
+            bot.rotate(rotateVel,-60);
+
+            //AVANÇA
+            bot.move(moveVel, 29, false);
 
             //LIBERA PEÇA
             bot.claw(0.65);
             bot.espere(clawStop);
 
             //VOLTA
-            bot.move(moveVel, -botShipgMove, false);
+            bot.move(moveVel, -25, false);
 
             //ABAIXA
             bot.setArmPos(armVel, ArmPos.ONE);
 
             //GIRA
-            bot.rotate(rotateVel,-35);
+            bot.rotate(rotateVel,-30);
 
-            //AVANÇA
-            bot.move(moveVel, -100, false);
+            //VOLTA
+            bot.move(moveVel, -140, false);
+
+            //ABAIXA
+            bot.setArmPos(armVel, ArmPos.COLECT);
 
         }
     }

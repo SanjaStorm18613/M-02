@@ -44,7 +44,7 @@ public class Bot {
         detector   = new Detection(hwM, tl, opMode);
 
         driveTrain = new DriveTrain(hwM);
-        arm        = new Arm(hwM, opM);
+        arm        = new Arm(hwM);
         claw       = hwM.get(ServoImplEx.class, "Garra");
         rotatMotor = hwM.get(DcMotorEx.class, "Carrossel");
         ledCam     = hwM.get(DcMotorEx.class, "Cam");
@@ -71,8 +71,8 @@ public class Bot {
         else         encPos = (driveTrain.encodertFE + driveTrain.encodertFD) / 2.0 + dist * 21.8;
 
 
-        yawPID  = new PID(gyro.getAngle(), 0.03, 0.0, 0.0000);
-        distPID = new PID(encPos, .0055, 0.01, 0.0);
+        yawPID  = new PID(gyro.getAngle(), .04, 0, 0);
+        distPID = new PID(encPos, .0045, 0, 0);
 
 
         while (opMode.opModeIsActive()) {
@@ -120,7 +120,7 @@ public class Bot {
             telemetry.update();
             if (horMove){
 
-                driveTrain.omniDrive(distCorrecao, 0 , -yawCorrecao);
+                driveTrain.omniDrive(-distCorrecao, 0 , -yawCorrecao);
                 //driveTrain.arcadeDrive(0.0, 0.0);
 
 
@@ -229,7 +229,7 @@ public class Bot {
 
         while (opMode.opModeIsActive()) {
             if (time - 1200 < tempo.milliseconds()) {
-                rotatMotor.setPower(1 * signum(vel));
+                rotatMotor.setPower(signum(vel));
             }
 
             if (time < tempo.milliseconds()){
@@ -297,5 +297,4 @@ public class Bot {
 
     public CustomElementLocation getCustomElementLocation (){ return detector.getElementDetection(); }
 
-    public int getTickLoss () { return arm.tickLoss; }
 }

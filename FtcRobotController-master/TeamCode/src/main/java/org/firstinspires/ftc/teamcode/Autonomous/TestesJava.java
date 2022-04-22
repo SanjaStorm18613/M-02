@@ -59,14 +59,8 @@ public class TestesJava extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            bot.setArmPos(0.4, ArmPos.TWO);
-
-            while (opModeIsActive()) {
-
-                telemetry.addData("ticks", bot.getTickLoss());
-                telemetry.update();
-
-            }
+            bot.move(.9, 50, false);
+            bot.rotate(0.55,145);
 
         }
     }
