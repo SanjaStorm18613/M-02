@@ -129,17 +129,17 @@ public class SquareLocationDetectorOpenCV extends OpenCvPipeline {
 
             case LEFT://LEFT ~176
                 Imgproc.line(result,
-                        new Point(160, 190),
-                        new Point(160, 230),
-                        new Scalar(0,255,255),
+                        new Point(100, 190),
+                        new Point(100, 230),
+                        new Scalar(0, 255, 255),
                         3);
                 break;
 
             case RIGHT://RIGHT ~515
                 Imgproc.line(result,
-                        new Point(490, 190),
-                        new Point(490, 230),
-                        new Scalar(0,255,255),
+                        new Point(430, 190),
+                        new Point(430, 230),
+                        new Scalar(0, 255, 255),
                         3);
                 break;
 
@@ -147,7 +147,7 @@ public class SquareLocationDetectorOpenCV extends OpenCvPipeline {
                 Imgproc.line(result,
                         new Point(312, 190),
                         new Point(312, 230),
-                        new Scalar(255,0,255),
+                        new Scalar(0, 255, 255),
                         3);
                 break;
 
@@ -156,12 +156,12 @@ public class SquareLocationDetectorOpenCV extends OpenCvPipeline {
                 Imgproc.line(result,
                         new Point(200, 180),
                         new Point(400, 290),
-                        new Scalar(0,255,255),
+                        new Scalar(0, 255, 255),
                         3);
                 Imgproc.line(result,
                         new Point(400, 180),
                         new Point(200, 290),
-                        new Scalar(0,255,255),
+                        new Scalar(0, 255, 255),
                         3);
         }
 

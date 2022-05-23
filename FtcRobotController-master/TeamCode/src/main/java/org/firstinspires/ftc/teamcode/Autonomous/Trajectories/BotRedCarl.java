@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Actuators.ArmPos;
 import org.firstinspires.ftc.teamcode.Autonomous.Bot;
 import org.firstinspires.ftc.teamcode.Autonomous.Detection.CustomElementLocation;
-import org.firstinspires.ftc.teamcode.Autonomous.Detection.FieldPosition;
 
 
 @Autonomous(name="BotRedCarl", group="Linear Opmode")
@@ -63,17 +62,17 @@ public class BotRedCarl extends LinearOpMode {
             //LAVANTA NIVEL DETECTADO
             if (locElement == CustomElementLocation.CENTER) {
 
-                bot.setArmPos(armVel, ArmPos.TWO);
+                bot.setArmPos(ArmPos.TWO);
 
             }
             else if (locElement == CustomElementLocation.RIGHT) {
 
-                bot.setArmPos(armVel, ArmPos.THREE);
+                bot.setArmPos(ArmPos.THREE);
 
             }
             else {
 
-                bot.setArmPos(armVel, ArmPos.ONE);
+                bot.setArmPos(ArmPos.ONE);
 
             }
 
@@ -94,7 +93,7 @@ public class BotRedCarl extends LinearOpMode {
             bot.move(moveVel, -28, false);
 
             //ABAIXA
-            bot.setArmPos(armVel, ArmPos.COLECT);
+            bot.setArmPos(ArmPos.COLECT);
 
             //GIRA
             bot.rotate(rotateVel,92);

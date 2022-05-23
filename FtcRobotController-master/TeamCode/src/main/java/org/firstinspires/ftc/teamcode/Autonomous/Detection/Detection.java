@@ -9,14 +9,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaCurrentGame;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,22 +24,13 @@ public class Detection {
 
     private final OpenCvWebcam webcam;
     private final SquareLocationDetectorOpenCV detector;
-    private final VuforiaCurrentGame vuforiaFreightFrenzy;
-
-    private final String[] trackPos;
-    private final FieldPosition[] botPos;
     private final DcMotor camLed;
 
 
     public Detection(HardwareMap hw, Telemetry tele, LinearOpMode opMode) {
 
-        hardwareMap          = hw;
-        telemetry            = tele;
-
-        vuforiaFreightFrenzy = new VuforiaCurrentGame();
-        trackPos             = new String[]{"Blue Storage", "Blue Alliance Wall", "Red Storage", "Red Alliance Wall"};
-        botPos               = new FieldPosition[]{FieldPosition.B_STORAGE, FieldPosition.B_WALL, FieldPosition.R_STORAGE, FieldPosition.R_WALL, FieldPosition.NOT_FOUND};
-
+        hardwareMap = hw;
+        telemetry = tele;
 
         int cameraMonitorViewId = opMode
                 .hardwareMap
@@ -73,7 +61,7 @@ public class Detection {
 
     private void initDetectionElement() {
 
-        camLed.setPower(0.9);
+        camLed.setPower(0.8);
 
         webcam.setPipeline(detector);
         webcam.setMillisecondsPermissionTimeout(2500);
@@ -99,7 +87,7 @@ public class Detection {
     }
 
 
-    public void stopDetectionElement(){
+    public void stopDetectionElement() {
 
         camLed.setPower(0);
 
@@ -115,44 +103,4 @@ public class Detection {
         return detector.getLocation();
     }
 
-
-    public void initVuforia () {
-
-        vuforiaFreightFrenzy.initialize(
-                "",
-                hardwareMap.get(WebcamName.class, "Webcam 1"),
-                "",
-                false,
-                true,
-                VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES,
-                0, 0, 0,
-                AxesOrder.XZY,
-                90, 90, 0,
-                false
-        );
-
-        vuforiaFreightFrenzy.activate();
-
-    }
-
-    public void stopVuforia(){
-        vuforiaFreightFrenzy.close();
-    }
-
-
-    public FieldPosition getBotPosition() {
-
-        for (int i = 0; i < 4; i++) {
-
-            if (vuforiaFreightFrenzy.track(trackPos[i]).isVisible) {
-
-                return botPos[i];
-
-            }
-        }
-
-        return FieldPosition.NOT_FOUND;
-    }
-
 }
-
