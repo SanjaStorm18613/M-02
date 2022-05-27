@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -42,8 +43,9 @@ public class Bot {
         detector   = new Detection(hwM, tl, opMode);
 
         driveTrain = new DriveTrain(hwM);
-        arm        = new Arm(hwM);
+        arm        = new Arm(hwM, opM);
         claw       = hwM.get(ServoImplEx.class, "Garra");
+        claw.setDirection(Servo.Direction.FORWARD);
         rotatMotor = hwM.get(DcMotorEx.class, "Carrossel");
 
     }
@@ -97,7 +99,7 @@ public class Bot {
             telemetry.addData("yaw", yawCorrecao);
 
 
-            if (Math.abs(distCorrecao) <= 0.01 && Math.abs(yawCorrecao) <= 0.01) break;
+            if (Math.abs(distCorrecao) <= 0.1 && Math.abs(yawCorrecao) <= 0.1) break;
 
 
             distCorrecao *= forcaMotorInicial;
@@ -136,6 +138,35 @@ public class Bot {
 
     }
 
+    public void move (double powerMotor, int time) {
+
+        PID yawPID;
+
+        double angulo;
+
+
+        yawPID  = new PID(gyro.getAngle(), .04, 0, 0);
+
+        ElapsedTime tempo = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+
+        while (opMode.opModeIsActive()) {
+
+            angulo = gyro.getContinuosAngle();
+
+
+            yawCorrecao  = yawPID.calcularCorrecao(angulo);
+
+
+            if (time < tempo.milliseconds()) break;
+
+            driveTrain.arcadeDrive(powerMotor, 0);//-yawCorrecao);
+
+        }
+
+        driveTrain.arcadeDrive(0.0, 0.0);
+        espere(500);
+
+    }
 
     public void rotate (double forcaMotor, int angulo) {
 
@@ -167,7 +198,7 @@ public class Bot {
             gyroContAng = (int) gyro.getContinuosAngle();
 
             if (
-                Math.abs(this.giroAnterior - gyroContAng) <= 2 &&
+                Math.abs(this.giroAnterior - gyroContAng) <= 3 &&
                 0.5 >= Math.abs(((Gyroscope) gyro.imu)
                                 .getAngularVelocity(AngleUnit.DEGREES)
                                 .zRotationRate)
@@ -214,22 +245,18 @@ public class Bot {
         rotatMotor.setPower(vel);
 
         while (opMode.opModeIsActive()) {
-            if (time - 1200 < tempo.milliseconds()) {
-                rotatMotor.setPower(signum(vel));
-            }
 
-            if (time < tempo.milliseconds()){
-                rotatMotor.setPower(0);
-                break;
-            }
+            if (time < tempo.milliseconds()) break;
 
         }
+
+        rotatMotor.setPower(0);
+
     }
 
 
     public void claw (double position){
 
-        claw.setPwmEnable();
         claw.setPosition(position);
 
     }

@@ -38,8 +38,8 @@ public class SquareLocationDetectorOpenCV extends OpenCvPipeline {
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_BGR2HLS);
 
 
-        Scalar lower = new Scalar (30, 20, 80);
-        Scalar upper = new Scalar (100, 180, 255);
+        Scalar lower = new Scalar (30, 10, 150);
+        Scalar upper = new Scalar (100, 80, 255);
 
 
         Core.inRange(mat, lower, upper, mat);

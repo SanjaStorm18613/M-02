@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Trajectories;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Actuators.ArmPos;
@@ -9,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Detection.CustomElementLocation
 
 
 @Autonomous(name="BotRedStorage", group="Linear Opmode")
-
+@Disabled
 public class BotRedStorage extends LinearOpMode {
 
     private Bot bot;

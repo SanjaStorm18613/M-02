@@ -1,15 +1,21 @@
 package org.firstinspires.ftc.teamcode.Actuators;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Arm {
 
     private final DcMotorEx arm;
+    private LinearOpMode opM;
+    private TouchSensor armLimit;
 
-    public Arm (HardwareMap hwM){
+    public Arm (HardwareMap hwM, LinearOpMode opM){
 
+        this.opM = opM;
         arm = hwM.get(DcMotorEx.class, "Braco");
         arm.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -17,11 +23,14 @@ public class Arm {
         arm.setDirection(DcMotorEx.Direction.FORWARD);
         arm.setTargetPositionTolerance(10);
 
+        armLimit = hwM.get(TouchSensor.class, "armLimit");
+
     }
 
     public void setArmPos(ArmPos pos){
 
         int position;
+        int erroMov = 0;
 
         switch (pos){
             case COLECT:
@@ -29,17 +38,30 @@ public class Arm {
                 position = 0;
                 break;
             case ONE:
-                position = 120;
+                position = 150;
                 break;
             case TWO:
-                position = 300;
+                position = 270;
                 break;
             case THREE:
-                position = 430;
+                position = 460;
                 break;
         }
+        if (arm.getTargetPosition() == 0 && !armLimit.isPressed()){
 
-        arm.setTargetPosition(position);
+            arm.setTargetPosition(position);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            arm.setVelocity(0.4 * 2000);
+
+            while (opM.opModeIsActive()){
+
+                if (armLimit.isPressed()) break;
+                else erroMov = arm.getCurrentPosition();
+
+            }
+        }
+
+        arm.setTargetPosition(position + erroMov);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setVelocity(0.4 * 2000);
 

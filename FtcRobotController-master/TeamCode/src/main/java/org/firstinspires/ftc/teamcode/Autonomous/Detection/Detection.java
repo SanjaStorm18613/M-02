@@ -50,7 +50,7 @@ public class Detection {
 
         detector = new SquareLocationDetectorOpenCV(tele);
 
-        camLed = hw.get(DcMotor.class, "Cam");
+        camLed = hw.get(DcMotor.class, "Led");
         camLed.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
